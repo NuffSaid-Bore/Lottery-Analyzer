@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, send_from_directory
 import os
 import pandas as pd
 from flask_cors import CORS
-from analysis import LotteryAnalyzer
+from .analysis import LotteryAnalyzer
 
 app = Flask(__name__)
 CORS(app)
