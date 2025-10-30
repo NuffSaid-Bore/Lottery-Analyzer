@@ -68,15 +68,19 @@ def analyze_file():
         "recommended": analyzer_uploaded.pick_numbers()
     })
     
+frontend_path = os.path.join(os.getcwd(), "frontend_build")
+
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_frontend(path):
+    full_path = os.path.join(frontend_path, path)
+    if path != "" and os.path.exists(full_path):
+        return send_from_directory(frontend_path, path)
+    return send_from_directory(frontend_path, "index.html")
 
-    if path != "" and os.path.exists(os.path.join("frontend_build", path)):
-        return send_from_directory("frontend_build", path)
-    else:
-        return send_from_directory("frontend_build", "index.html")
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
+

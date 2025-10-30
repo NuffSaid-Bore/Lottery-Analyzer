@@ -30,5 +30,5 @@ COPY --from=frontend-build /app/frontend/build ./frontend_build
 # Expose port
 EXPOSE 5000
 
-# Start backend
-CMD ["python", "backend/app/app.py"]
+# Start backend with Gunicorn (production-ready)
+CMD ["gunicorn", "backend.app.app:app", "-b", "0.0.0.0:5000", "--workers", "2"]
