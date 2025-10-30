@@ -4,7 +4,9 @@ import pandas as pd
 from flask_cors import CORS
 from .analysis import LotteryAnalyzer
 
-app = Flask(__name__)
+frontend_path = os.path.join(os.getcwd(), "frontend_build")
+app = Flask(__name__, static_folder=frontend_path, static_url_path="/")
+
 CORS(app)
 
 csv_path = os.path.join(os.path.dirname(__file__), "../data/past_draws.csv")
@@ -67,17 +69,17 @@ def analyze_file():
         "rolling": analyzer_uploaded.rolling_frequency().to_dict(),
         "recommended": analyzer_uploaded.pick_numbers()
     })
-    
-frontend_path = os.path.join(os.getcwd(), "frontend_build")
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_frontend(path):
-    full_path = os.path.join(frontend_path, path)
-    if path != "" and os.path.exists(full_path):
+    if path != "" and os.path.exists(os.path.join(frontend_path, path)):
         return send_from_directory(frontend_path, path)
     return send_from_directory(frontend_path, "index.html")
 
+@app.route("/static/<path:path>")
+def serve_static(path):
+    return send_from_directory(os.path.join(frontend_path, "static"), path)
 
 
 if __name__ == "__main__":
