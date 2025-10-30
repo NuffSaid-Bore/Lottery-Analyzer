@@ -25,7 +25,7 @@ function LotteryAnalyzer() {
   const fetchRecommendedNumbers = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/api/recommended");
+      const res = await axios.get("/api/recommended");
       setRecommendedNumbers(res.data || []);
     } catch (err) {
       console.error(err);

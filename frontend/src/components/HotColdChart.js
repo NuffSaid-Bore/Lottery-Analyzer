@@ -6,7 +6,7 @@ function HotColdChart() {
   const [data, setData] = useState({ hot: {}, cold: {} });
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/hotcold")
+    axios.get("/api/hotcold")
       .then(res => setData(res.data))
       .catch(err => console.error(err));
   }, []);

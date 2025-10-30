@@ -6,7 +6,7 @@ function RollingChart() {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/rolling")
+    axios.get("/api/rolling")
       .then(res => setData(res.data))
       .catch(err => console.error(err));
   }, []);

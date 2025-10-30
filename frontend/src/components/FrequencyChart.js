@@ -6,7 +6,7 @@ function FrequencyChart() {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/frequency")
+    axios.get("/api/frequency")
       .then(res => setData(res.data))
       .catch(err => console.error(err));
   }, []);

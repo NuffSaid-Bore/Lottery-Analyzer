@@ -7,8 +7,16 @@ from analysis import LotteryAnalyzer
 app = Flask(__name__)
 CORS(app)
 
+csv_path = os.path.join(os.path.dirname(__file__), "../data/past_draws.csv")
+csv_path = os.path.abspath(csv_path)
 
-analyzer = LotteryAnalyzer("../data/past_draws.csv")
+if not os.path.exists(csv_path):
+    print(f"⚠️ CSV file not found at {csv_path}")
+else:
+    print(f"✅ Loaded CSV from {csv_path}")
+
+
+analyzer = LotteryAnalyzer(csv_path)
 
 @app.route("/api/frequency")
 def frequency():

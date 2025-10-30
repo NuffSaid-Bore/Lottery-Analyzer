@@ -8,7 +8,7 @@ function HeatmapChart() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/heatmap").then(res => {
+    axios.get("/api/heatmap").then(res => {
       setXLabels(res.data.x_labels);
       setYLabels(res.data.y_labels);
       setData(res.data.data);
